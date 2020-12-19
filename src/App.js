@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import DisplayQuizz from './DisplayQuizz';
+import DisplayScore from './DisplayScore';
 
 
 
@@ -27,7 +28,7 @@ class App extends Component {
         <div className="game">
           <h2>Mental Math</h2>
           <DisplayQuizz />
-          <p className="text"> Your Score: {numCorrect}/{numQuestions}</p>
+          <DisplayScore numCorrect={numCorrect} numQuestions={numQuestions} />
         </div>
         
       </div>
