@@ -40,7 +40,20 @@ class DisplayQuizz extends React.Component{
     handleAnswer = event => {
         const newValuesArray = this.makeNewQuestion(); //gets a new question
         this.updateState(newValuesArray); //updates the UI
+        const answerWasCorrect = this.evaluateAnswer(event.target.name); //event.target.name returns the name for the tag clicked. In our case, the tag is Button and the name can be true or false. We usually give unique name(s) to button(s) so that we can knw the specific one clicked on a page 
+        this.props.handleAnswer(answerWasCorrect); //we call the function passed as props from the parent or ancestor component Apps then pass true of false depending on what evaluateAnswer method returns
     };
+
+    evaluateAnswer(givenAnswer) {
+        const { value1, value2, value3, proposedAnswer } = this.state; //FYI: remeber proposed anser is defined when making a question the user have to just say if the proposed anser is correct or not
+        const corrAnswer = value1 + value2 + value3;
+    
+        //returns true if any of the two conditions are met, otherwise it will return false
+        return (
+          (corrAnswer === proposedAnswer && givenAnswer === 'true') ||
+          (corrAnswer !== proposedAnswer && givenAnswer === 'false')
+        );
+      }
     
     render() {
       const { value1, value2, value3, proposedAnswer } = this.state;

@@ -35,6 +35,21 @@ class App extends Component {
     numCorrect: 0, //keeps track of the number of questions the users got correct
     numQuestions: 0,  //keeps track of number of question asked
   };
+
+  //This arrow function updates the count for the number of questions the user got right(numCorrect) and the total number of questions(numQuestions)
+  //One good thins about state, is that wherever the state keys are passed into components that gets updated automatically when the steState() is called for those keys
+  //We have to pass this function as props to the child component(DisplayQuizz) so that the DisplayQuizz can reference and call this function after checking for if the user gets the correct anser to the question right or wrong 
+  handleAnswer = answerWasCorrect => {
+    if (answerWasCorrect) { // the user have to get the question right for this state to be updated
+      this.setState(currState => ({
+        numCorrect: currState.numCorrect + 1,
+      }));
+    }
+    //the number of questions will always be counted and updated
+    this.setState(currState => ({
+      numQuestions: currState.numQuestions + 1,
+    }));
+  };
   
   render() {	
     
@@ -46,7 +61,7 @@ class App extends Component {
         </header>
         <div className="game">
           <h2>Mental Math</h2>
-          <DisplayQuizz />
+          <DisplayQuizz handleAnswer={this.handleAnswer} />
           <DisplayScore numCorrect={this.state.numCorrect} numQuestions={this.state.numQuestions} />
         </div>
         
